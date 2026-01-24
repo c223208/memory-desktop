@@ -41,7 +41,7 @@ body {
     
     /* 仕掛け：背景画像を画面全体に対して固定する */
     background-color: #000;
-    background-image: url('https://placehold.jp/800x600.png?text=Group+Photo'); 
+    background-image: url('img/picture.jpg'); 
     background-size: cover;
     background-attachment: fixed; 
     background-position: center;
