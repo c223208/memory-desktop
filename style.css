@@ -1,6 +1,7 @@
 body {
     margin: 0;
     overflow: hidden;
+<<<<<<< HEAD
     background-color: #008080;
     
     /* Packard Belle Style Background */
@@ -267,11 +268,136 @@ button, input, textarea, select, div, p, span, h1, h2, h3, h4, h5, h6, a, .title
 }
 
 .content {
+=======
+    background-color: #2c3e50; /* デスクトップ全体の背景色 */
+    font-family: "DotGothic16", Arial, sans-serif;
+    user-select: none; /* テキスト選択を防いでアプリっぽくする */
+}
+
+/* ============================
+   共通のウィンドウスタイル
+   ============================ */
+.window {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.4);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* タイトルバー（ヘッダー） */
+.title-bar {
+    height: 28px;
+    background: linear-gradient(to bottom, #e0e0e0, #cfcfcf);
+    border-bottom: 1px solid #999;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* ボタンを右寄せ */
+    padding: 0 8px;
+    cursor: move; /* ドラッグできることを示す */
+}
+
+/* ============================
+   写真ウィンドウ（レイヤー上位）
+   ============================ */
+.photo-window {
+    /* サイズは個別のクラスで指定 (.window-large, .window-medium, .window-small) */
+    z-index: 10; /* メッセージより手前 */
+    
+    /* 仕掛け：背景画像を画面全体に対して固定する */
+    background-color: #2c3e50;
+    background-image: url('img/picture.jpg'); 
+    background-size: 90vmin;
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.window-large {
+    width: 480px;
+    height: 360px;
+}
+
+.window-medium {
+    width: 320px;
+    height: 240px;
+}
+
+/* ============================
+   メッセージウィンドウ（レイヤー下位）
+   ============================ */
+.message-window {
+    width: 350px;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 5; /* 写真より奥 */
+    color: #333;
+}
+
+.content {
+    padding: 20px;
+    flex-grow: 1;
+>>>>>>> 962a91ee4cd0dd32861f902361c452c49d8a9fec
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+<<<<<<< HEAD
     font-size: 16px;
     min-height: 100px;
     padding: 10px;
+=======
+    font-size: 14px;
+}
+
+/* ボタンのデザイン */
+.btn {
+    width: 12px;
+    height: 12px;
+    margin-left: 6px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+.btn:hover { transform: scale(1.1); }
+.btn:active { transform: scale(0.9); }
+
+.btn-close { background-color: #ff5f56; } /* 赤：閉じる */
+.btn-link { background-color: #27c93f; }  /* 緑：リンク */
+
+/* ============================
+   デスクトップアイコン（フォルダ）
+   ============================ */
+.desktop-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    z-index: 1; /* 最背面 */
+}
+
+.desktop-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.icon-img {
+    font-size: 40px;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.icon-label {
+    font-size: 12px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+>>>>>>> 962a91ee4cd0dd32861f902361c452c49d8a9fec
 }
