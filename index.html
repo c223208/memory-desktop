@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Desktop</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="https://unpkg.com/98.css" />
     <link href="https://fonts.cdnfonts.com/css/w95fa" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,10 +93,49 @@
             </div>
         </div>
         <div class="window-body"></div>
+=======
+    <!-- Font -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="desktop-icon" onclick="restoreWindow('msg1')">
+        <div class="icon-img">📁</div>
+        <div class="icon-label">Message 1</div>
+    </div>
+
+    <div class="desktop-icon" onclick="restoreWindow('msg2')" style="top: 120px;">
+        <div class="icon-img">📁</div>
+        <div class="icon-label">Message 2</div>
+    </div>
+
+    <div class="window photo-window window-large" style="top: 50px; left: 50px;">
+        <div class="title-bar"></div>
+    </div>
+    
+    <div class="window photo-window window-medium" style="top: 50px; left: 450px;">
+        <div class="title-bar"></div>
+    </div>
+    
+    <div class="window photo-window window-medium" style="top: 250px; left: 100px;">
+        <div class="title-bar"></div>
+    </div>
+    
+    <div class="window photo-window window-large" style="top: 350px; left: 400px;">
+        <div class="title-bar"></div>
+    </div>
+    
+    <div class="window photo-window window-medium" style="top: 100px; left: 750px;">
+        <div class="title-bar"></div>
+>>>>>>> 962a91ee4cd0dd32861f902361c452c49d8a9fec
     </div>
 
     <div class="window message-window" id="msg1" style="top: 400px; left: 150px;">
         <div class="title-bar">
+<<<<<<< HEAD
             <div class="title-bar-text">管理者からのメッセージ</div>
             <div class="title-bar-controls">
                 <button aria-label="Help" onclick="goToPage()"></button>
@@ -103,12 +143,19 @@
             </div>
         </div>
         <div class="window-body content">
+=======
+            <button class="btn btn-link" onclick="goToPage()"></button>
+            <button class="btn btn-close" onclick="closeWindow('msg1')"></button>
+        </div>
+        <div class="content">
+>>>>>>> 962a91ee4cd0dd32861f902361c452c49d8a9fec
             <p>管理者からのメッセージ<br>その１</p>
         </div>
     </div>
 
     <div class="window message-window" id="msg2" style="top: 450px; left: 600px;">
         <div class="title-bar">
+<<<<<<< HEAD
             <div class="title-bar-text">重要なお知らせ</div>
             <div class="title-bar-controls">
                 <button aria-label="Help" onclick="goToPage()"></button>
@@ -116,10 +163,17 @@
             </div>
         </div>
         <div class="window-body content">
+=======
+            <button class="btn btn-link" onclick="goToPage()"></button>
+            <button class="btn btn-close" onclick="closeWindow('msg2')"></button>
+        </div>
+        <div class="content">
+>>>>>>> 962a91ee4cd0dd32861f902361c452c49d8a9fec
             <p>追加のメッセージ<br>（重要なお知らせ）</p>
         </div>
     </div>
 
+<<<<<<< HEAD
     <!-- Taskbar -->
     <div class="taskbar">
         <button class="start-button">
@@ -142,6 +196,8 @@
     </div>
 
     <div class="crt-overlay"></div>
+=======
+>>>>>>> 962a91ee4cd0dd32861f902361c452c49d8a9fec
     <script src="script.js"></script>
 </body>
 </html>
