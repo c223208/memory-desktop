@@ -4,60 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Desktop</title>
+    <link rel="stylesheet" href="https://unpkg.com/98.css" />
+    <link href="https://fonts.cdnfonts.com/css/w95fa" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="desktop-icon" onclick="restoreWindow('msg1')">
-        <div class="icon-img">📁</div>
-        <div class="icon-label">Message 1</div>
+    <!-- BIOS Boot Screen -->
+    <div id="boot-screen">
+        <div id="boot-content" class="boot-text"></div>
+        <div id="boot-cursor" class="boot-text blinking">_</div>
     </div>
 
-    <div class="desktop-icon" onclick="restoreWindow('msg2')" style="top: 120px;">
-        <div class="icon-img">📁</div>
-        <div class="icon-label">Message 2</div>
+    <!-- Desktop Icons -->
+    <div class="desktop-icons-container">
+        <div class="desktop-icon" onclick="restoreWindow('msg1')">
+            <img src="img/icon/folder.png" alt="folder" class="icon-img">
+            <div class="icon-label">Message 1</div>
+        </div>
+
+        <div class="desktop-icon" onclick="restoreWindow('msg2')">
+            <img src="img/icon/folder.png" alt="folder" class="icon-img">
+            <div class="icon-label">Message 2</div>
+        </div>
     </div>
 
+    <!-- Windows -->
     <div class="window photo-window window-large" style="top: 50px; left: 50px;">
-        <div class="title-bar"></div>
+        <div class="title-bar">
+            <div class="title-bar-text">Picture</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="window-body"></div>
     </div>
     
     <div class="window photo-window window-medium" style="top: 50px; left: 450px;">
-        <div class="title-bar"></div>
+        <div class="title-bar">
+            <div class="title-bar-text">Picture</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="window-body"></div>
     </div>
     
     <div class="window photo-window window-medium" style="top: 250px; left: 100px;">
-        <div class="title-bar"></div>
+        <div class="title-bar">
+            <div class="title-bar-text">Picture</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="window-body"></div>
     </div>
     
     <div class="window photo-window window-large" style="top: 350px; left: 400px;">
-        <div class="title-bar"></div>
+        <div class="title-bar">
+            <div class="title-bar-text">Picture</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="window-body"></div>
     </div>
     
     <div class="window photo-window window-medium" style="top: 100px; left: 750px;">
-        <div class="title-bar"></div>
+        <div class="title-bar">
+            <div class="title-bar-text">Picture</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="window-body"></div>
     </div>
 
     <div class="window message-window" id="msg1" style="top: 400px; left: 150px;">
         <div class="title-bar">
-            <button class="btn btn-link" onclick="goToPage()"></button>
-            <button class="btn btn-close" onclick="closeWindow('msg1')"></button>
+            <div class="title-bar-text">管理者からのメッセージ</div>
+            <div class="title-bar-controls">
+                <button aria-label="Help" onclick="goToPage()"></button>
+                <button aria-label="Close" onclick="closeWindow('msg1')"></button>
+            </div>
         </div>
-        <div class="content">
+        <div class="window-body content">
             <p>管理者からのメッセージ<br>その１</p>
         </div>
     </div>
 
     <div class="window message-window" id="msg2" style="top: 450px; left: 600px;">
         <div class="title-bar">
-            <button class="btn btn-link" onclick="goToPage()"></button>
-            <button class="btn btn-close" onclick="closeWindow('msg2')"></button>
+            <div class="title-bar-text">重要なお知らせ</div>
+            <div class="title-bar-controls">
+                <button aria-label="Help" onclick="goToPage()"></button>
+                <button aria-label="Close" onclick="closeWindow('msg2')"></button>
+            </div>
         </div>
-        <div class="content">
+        <div class="window-body content">
             <p>追加のメッセージ<br>（重要なお知らせ）</p>
         </div>
     </div>
 
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <button class="start-button">
+            <img src="img/icon/windows.png" alt="win" class="start-icon">
+            <b>Start</b>
+        </button>
+        <div class="taskbar-divider"></div>
+        <div class="task-items">
+            <!-- Active tasks sample -->
+            <button class="task-button">
+                <img src="img/icon/folder.png" style="width:16px; height:16px; margin-right:4px;">
+                <b>Message 1</b>
+            </button>
+        </div>
+        <div class="taskbar-divider"></div>
+        <div class="tray">
+            <img src="img/icon/msn3.png" class="tray-icon" alt="sound">
+            <div class="clock" id="clock">12:00 PM</div>
+        </div>
+    </div>
+
+    <div class="crt-overlay"></div>
     <script src="script.js"></script>
 </body>
 </html>
