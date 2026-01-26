@@ -34,61 +34,61 @@
     </div>
 
     <!-- Windows -->
-    <div class="window photo-window window-large" style="top: 50px; left: 50px;">
+    <div id="photo1" class="window photo-window window-large" style="top: 50px; left: 50px;">
         <div class="title-bar">
-            <div class="title-bar-text">Picture</div>
+            <div class="title-bar-text">Picture 1</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
+                <button aria-label="Minimize" onclick="minimizeWindow('photo1')"></button>
                 <button aria-label="Maximize"></button>
-                <button aria-label="Close"></button>
+                <button aria-label="Close" onclick="closeWindow('photo1')"></button>
             </div>
         </div>
         <div class="window-body"></div>
     </div>
     
-    <div class="window photo-window window-medium" style="top: 50px; left: 450px;">
+    <div id="photo2" class="window photo-window window-medium" style="top: 50px; left: 450px;">
         <div class="title-bar">
-            <div class="title-bar-text">Picture</div>
+            <div class="title-bar-text">Picture 2</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
+                <button aria-label="Minimize" onclick="minimizeWindow('photo2')"></button>
                 <button aria-label="Maximize"></button>
-                <button aria-label="Close"></button>
+                <button aria-label="Close" onclick="closeWindow('photo2')"></button>
             </div>
         </div>
         <div class="window-body"></div>
     </div>
     
-    <div class="window photo-window window-medium" style="top: 250px; left: 100px;">
+    <div id="photo3" class="window photo-window window-medium" style="top: 250px; left: 100px;">
         <div class="title-bar">
-            <div class="title-bar-text">Picture</div>
+            <div class="title-bar-text">Picture 3</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
+                <button aria-label="Minimize" onclick="minimizeWindow('photo3')"></button>
                 <button aria-label="Maximize"></button>
-                <button aria-label="Close"></button>
+                <button aria-label="Close" onclick="closeWindow('photo3')"></button>
             </div>
         </div>
         <div class="window-body"></div>
     </div>
     
-    <div class="window photo-window window-large" style="top: 350px; left: 400px;">
+    <div id="photo4" class="window photo-window window-large" style="top: 350px; left: 400px;">
         <div class="title-bar">
-            <div class="title-bar-text">Picture</div>
+            <div class="title-bar-text">Picture 4</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
+                <button aria-label="Minimize" onclick="minimizeWindow('photo4')"></button>
                 <button aria-label="Maximize"></button>
-                <button aria-label="Close"></button>
+                <button aria-label="Close" onclick="closeWindow('photo4')"></button>
             </div>
         </div>
         <div class="window-body"></div>
     </div>
     
-    <div class="window photo-window window-medium" style="top: 100px; left: 750px;">
+    <div id="photo5" class="window photo-window window-medium" style="top: 100px; left: 750px;">
         <div class="title-bar">
-            <div class="title-bar-text">Picture</div>
+            <div class="title-bar-text">Picture 5</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
+                <button aria-label="Minimize" onclick="minimizeWindow('photo5')"></button>
                 <button aria-label="Maximize"></button>
-                <button aria-label="Close"></button>
+                <button aria-label="Close" onclick="closeWindow('photo5')"></button>
             </div>
         </div>
         <div class="window-body"></div>
@@ -99,6 +99,7 @@
             <div class="title-bar-text">管理者からのメッセージ</div>
             <div class="title-bar-controls">
                 <button aria-label="Help" onclick="goToPage()"></button>
+                <button aria-label="Minimize" onclick="minimizeWindow('msg1')"></button>
                 <button aria-label="Close" onclick="closeWindow('msg1')"></button>
             </div>
         </div>
@@ -112,6 +113,7 @@
             <div class="title-bar-text">重要なお知らせ</div>
             <div class="title-bar-controls">
                 <button aria-label="Help" onclick="goToPage()"></button>
+                <button aria-label="Minimize" onclick="minimizeWindow('msg2')"></button>
                 <button aria-label="Close" onclick="closeWindow('msg2')"></button>
             </div>
         </div>
@@ -127,16 +129,11 @@
             <b>Start</b>
         </button>
         <div class="taskbar-divider"></div>
-        <div class="task-items">
-            <!-- Active tasks sample -->
-            <button class="task-button">
-                <img src="img/icon/folder.png" style="width:16px; height:16px; margin-right:4px;">
-                <b>Message 1</b>
-            </button>
+        <div class="task-items" id="taskbar-items">
+            <!-- Dynamic items will be added here -->
         </div>
         <div class="taskbar-divider"></div>
         <div class="tray">
-            <img src="img/icon/msn3.png" class="tray-icon" alt="sound">
             <div class="clock" id="clock">12:00 PM</div>
         </div>
     </div>

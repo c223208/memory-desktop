@@ -4,19 +4,15 @@ const bootSequence = async () => {
     const bootScreen = document.getElementById('boot-screen');
     const cursor = document.getElementById('boot-cursor');
     
-    // ヘルパー: テキストを追加して改行
     const printLine = (text) => {
         const p = document.createElement('div');
-        // 空行の場合は &nbsp; を入れて高さを確保
         p.innerHTML = text === "" ? "&nbsp;" : text;
         output.appendChild(p);
         window.scrollTo(0, document.body.scrollHeight);
     };
 
-    // ヘルパー: 指定ミリ秒待機
     const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-    // ヘルパー: 直前の行にテキストを追記
     const appendToLastLine = (text) => {
         const lastLine = output.lastElementChild;
         if (lastLine) {
@@ -25,25 +21,22 @@ const bootSequence = async () => {
     };
 
     // --- Boot Sequence Start ---
-
-    // 1. Initial Header
     printLine("Award Modular BIOS v4.51PG, An Energy Star Ally");
     printLine("Copyright (C) 1984-1998, Award Software, Inc.");
     printLine("");
     printLine("PENTIUM-MMX CPU at 233MHz");
     
-    // 2. Memory Test Animation
     const memLine = document.createElement('div');
     output.appendChild(memLine);
     
     let memory = 0;
-    const maxMemory = 65536; // 64MB
-    const step = 2048; // Count speed
+    const maxMemory = 65536; 
+    const step = 2048; 
     
     while (memory <= maxMemory) {
         memLine.innerHTML = `Memory Test : ${memory}K OK`;
         memory += step;
-        await wait(20); // Speed of counting
+        await wait(20); 
     }
     await wait(400);
 
@@ -54,10 +47,9 @@ const bootSequence = async () => {
     printLine("PNP Init Completed");
     printLine("");
 
-    // 3. Drive Detection
     printLine("Detecting HDD Primary Master ...");
-    await wait(800); // Wait for HDD spin up
-    appendToLastLine(" WDC AC36400L"); // Found logic
+    await wait(800); 
+    appendToLastLine(" WDC AC36400L");
     
     printLine("Detecting HDD Primary Slave  ...");
     await wait(300);
@@ -74,16 +66,14 @@ const bootSequence = async () => {
     printLine("");
     await wait(1000);
     
-    // 4. Finalizing
     printLine("Verifying DMI Pool Data ........");
     await wait(800);
     appendToLastLine(" Update Success");
     printLine("Boot from ATAPI CD-ROM : Failure"); 
     printLine("Starting Windows 98...");
     
-    // 5. Fade out
     await wait(1500);
-    cursor.style.display = 'none'; // Stop cursor
+    cursor.style.display = 'none'; 
     bootScreen.style.transition = 'opacity 0.5s ease-out';
     bootScreen.style.opacity = '0';
     
@@ -92,8 +82,10 @@ const bootSequence = async () => {
     }, 500);
 };
 
-// Start boot sequence on load
-window.addEventListener('load', bootSequence);
+window.addEventListener('load', () => {
+    bootSequence();
+    initializeTaskbar();
+});
 
 
 // Clock Logic
@@ -115,23 +107,142 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock(); 
 
+// Window Management
+let maxZIndex = 100;
+let activeWindowId = null;
+
+// Initialize Taskbar and Windows
+function initializeTaskbar() {
+    const windows = document.querySelectorAll('.window');
+    windows.forEach(win => {
+        if (!win.id) return; // Skip if no ID
+        
+        // Ensure clicking window brings to front
+        win.addEventListener('mousedown', () => {
+            focusWindow(win.id);
+        });
+
+        // Add to taskbar if visible
+        if (win.style.display !== 'none') {
+            addTaskbarItem(win.id);
+        }
+    });
+}
+
+function addTaskbarItem(id) {
+    const taskbarContainer = document.getElementById('taskbar-items');
+    // Prevent duplicates
+    if (document.getElementById(`task-btn-${id}`)) return;
+
+    const win = document.getElementById(id);
+    const titleText = win.querySelector('.title-bar-text').innerText;
+    
+    // Choose icon based on window type (simple heuristic)
+    let iconSrc = 'img/icon/folder.png';
+    if (id.includes('photo')) iconSrc = 'img/icon/computer.png';
+
+    const btn = document.createElement('button');
+    btn.className = 'task-button';
+    btn.id = `task-btn-${id}`;
+    btn.innerHTML = `<img src="${iconSrc}" style="width:20px; height:20px; margin-right:4px; flex-shrink:0;"><b>${titleText}</b>`;
+    
+    btn.onclick = () => {
+        const targetWindow = document.getElementById(id);
+        
+        // Logic:
+        // 1. If minimized (display:none) -> Show and Focus
+        // 2. If visible but not focused -> Focus
+        // 3. If visible and focused -> Minimize (optional, strictly speaking user asked "become front", but standard OS behavior toggles. I'll stick to focus only based on prompt "become front")
+        
+        if (targetWindow.style.display === 'none') {
+            restoreWindow(id);
+        } else {
+             // Optional: If already top, minimize? No, user explicitly asked "Taskbar bar push -> tab becomes front layer"
+             focusWindow(id);
+        }
+    };
+
+    taskbarContainer.appendChild(btn);
+}
+
+function removeTaskbarItem(id) {
+    const btn = document.getElementById(`task-btn-${id}`);
+    if (btn) btn.remove();
+}
+
+function focusWindow(id) {
+    const targetWindow = document.getElementById(id);
+    const taskBtn = document.getElementById(`task-btn-${id}`);
+    
+    if (targetWindow) {
+        maxZIndex++;
+        targetWindow.style.zIndex = maxZIndex;
+        activeWindowId = id;
+        
+        // Update taskbar visual state
+        document.querySelectorAll('.task-button').forEach(b => {
+            b.classList.remove('active');
+            b.style.background = '#c0c0c0';
+            b.style.border = '2px outset #fff';
+        });
+        
+        if (taskBtn) {
+            taskBtn.classList.add('active');
+            // Pressed state style
+            taskBtn.style.background = '#e0e0e0'; // Slightly lighter or dithered pattern in win98
+            taskBtn.style.border = '2px inset #fff';
+        }
+    }
+}
+
+// Window Controls
+function closeWindow(id) {
+    const targetWindow = document.getElementById(id);
+    if (targetWindow) {
+        targetWindow.style.display = 'none';
+        removeTaskbarItem(id);
+    }
+}
+
+function minimizeWindow(id) {
+    const targetWindow = document.getElementById(id);
+    if (targetWindow) {
+        targetWindow.style.display = 'none';
+        // Keep taskbar item, but remove active state
+        const taskBtn = document.getElementById(`task-btn-${id}`);
+        if (taskBtn) {
+            taskBtn.classList.remove('active');
+            taskBtn.style.background = '#c0c0c0';
+            taskBtn.style.border = '2px outset #fff';
+        }
+    }
+}
+
+function restoreWindow(id) {
+    const targetWindow = document.getElementById(id);
+    if (targetWindow) {
+        targetWindow.style.display = 'flex';
+        // If it wasn't in taskbar (e.g. was closed), add it
+        addTaskbarItem(id);
+        focusWindow(id);
+    }
+}
+
+function goToPage() {
+    alert('ページ移動');
+}
+
 // Window Dragging Logic
 const windows = document.querySelectorAll('.window');
-let maxZIndex = 100;
 
 windows.forEach(win => {
     const titleBar = win.querySelector('.title-bar');
     let isDragging = false;
     let offsetX, offsetY;
 
-    const bringToFront = () => {
-        maxZIndex++;
-        win.style.zIndex = maxZIndex;
-    };
-
     titleBar.addEventListener('mousedown', (e) => {
         if(e.target.tagName === 'BUTTON') return;
-        bringToFront();
+        // focusWindow is handled by win.mousedown
         isDragging = true;
         const rect = win.getBoundingClientRect();
         offsetX = e.clientX - rect.left;
@@ -147,25 +258,4 @@ windows.forEach(win => {
     document.addEventListener('mouseup', () => {
         isDragging = false;
     });
-
-    win.addEventListener('mousedown', bringToFront);
 });
-
-// Window Controls
-function closeWindow(id) {
-    const targetWindow = document.getElementById(id);
-    if (targetWindow) targetWindow.style.display = 'none';
-}
-
-function restoreWindow(id) {
-    const targetWindow = document.getElementById(id);
-    if (targetWindow) {
-        targetWindow.style.display = 'flex';
-        maxZIndex++;
-        targetWindow.style.zIndex = maxZIndex;
-    }
-}
-
-function goToPage() {
-    alert('ページ移動');
-}
