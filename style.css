@@ -1,8 +1,11 @@
-body {
+html, body {
     margin: 0;
     overflow: hidden;
+    height: 100%; /* Ensure full height lock */
     background-color: #008080;
-    
+}
+
+body {
     /* Packard Belle Style Background */
     background-image: radial-gradient(rgba(0,0,0,0.15) 1px, transparent 0);
     background-size: 2px 2px;
@@ -202,7 +205,7 @@ button, input, textarea, select, div, p, span, h1, h2, h3, h4, h5, h6, a, .title
    ============================ */
 .desktop-icons-container {
     position: absolute;
-    top: 55px; /* 上の余白を元に戻す */
+    top: 10px; /* 上の余白を詰める */
     left: 0;
     padding: 0 20px;
     display: flex;
@@ -261,6 +264,16 @@ button, input, textarea, select, div, p, span, h1, h2, h3, h4, h5, h6, a, .title
 /* ============================
    Windows
    ============================ */
+.window.maximized {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: calc(100vh - 40px) !important; /* Exclude taskbar */
+    transform: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+}
+
 .window {
     position: absolute;
     display: flex;

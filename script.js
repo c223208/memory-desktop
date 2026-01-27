@@ -8,7 +8,8 @@ const bootSequence = async () => {
         const p = document.createElement('div');
         p.innerHTML = text === "" ? "&nbsp;" : text;
         output.appendChild(p);
-        window.scrollTo(0, document.body.scrollHeight);
+        // Scroll the boot screen container, not the window
+        bootScreen.scrollTop = bootScreen.scrollHeight; 
     };
 
     const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -171,6 +172,12 @@ function initializeTaskbar() {
         // Initial state: inactive
         const titleBar = win.querySelector('.title-bar');
         if (titleBar) titleBar.classList.add('inactive');
+
+        // Bind Maximize Button Dynamically
+        const maxBtn = win.querySelector('button[aria-label="Maximize"]');
+        if (maxBtn) {
+            maxBtn.onclick = () => maximizeWindow(win.id);
+        }
     });
 }
 
@@ -273,6 +280,14 @@ function minimizeWindow(id) {
     }
 }
 
+function maximizeWindow(id) {
+    const targetWindow = document.getElementById(id);
+    if (targetWindow) {
+        targetWindow.classList.toggle('maximized');
+        focusWindow(id);
+    }
+}
+
 function restoreWindow(id) {
     const targetWindow = document.getElementById(id);
     if (targetWindow) {
@@ -297,6 +312,9 @@ windows.forEach(win => {
 
     titleBar.addEventListener('mousedown', (e) => {
         if(e.target.tagName === 'BUTTON') return;
+        if(win.classList.contains('maximized')) return; // Prevent drag if maximized
+
+        e.preventDefault(); // Prevent text selection and default drag behaviors
         // focusWindow is handled by win.mousedown
         isDragging = true;
         const rect = win.getBoundingClientRect();
