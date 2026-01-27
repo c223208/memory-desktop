@@ -53,6 +53,7 @@ windows.forEach(win => {
 
 // Page Load Initialization
 window.addEventListener('load', () => {
+    renderUI();
     bootSequence();
     initializeWindowEventDelegation();
     initializeTaskbar();

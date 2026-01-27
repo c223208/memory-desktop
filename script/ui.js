@@ -4,6 +4,103 @@
 let maxZIndex = 100;
 let activeWindowId = null;
 
+// UI Rendering from Config
+function renderUI() {
+    renderDesktopIcons();
+    renderWindows();
+}
+
+// Render Desktop Icons
+function renderDesktopIcons() {
+    const container = document.getElementById('desktop-icons-container');
+    if (!container) return;
+
+    iconsConfig.forEach(icon => {
+        const div = document.createElement('div');
+        div.className = 'desktop-icon';
+        if (icon.target) {
+            div.setAttribute('data-target', icon.target);
+        }
+        div.innerHTML = `
+            <img src="${icon.img}" alt="${icon.label}" class="icon-img">
+            <div class="icon-label">${icon.label}</div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Render Windows
+function renderWindows() {
+    const container = document.getElementById('windows-container');
+    if (!container) return;
+
+    windowsConfig.forEach(win => {
+        const windowDiv = document.createElement('div');
+        windowDiv.id = win.id;
+        windowDiv.className = `window ${win.type}${win.size ? ' ' + win.size : ''}`;
+        windowDiv.style.top = win.top + 'px';
+        windowDiv.style.left = win.left + 'px';
+
+        // Create title bar with buttons
+        const titleBar = document.createElement('div');
+        titleBar.className = 'title-bar';
+
+        const titleText = document.createElement('div');
+        titleText.className = 'title-bar-text';
+        titleText.textContent = win.title;
+
+        const controls = document.createElement('div');
+        controls.className = 'title-bar-controls';
+
+        // Help button (only for message windows)
+        if (win.type === 'message-window') {
+            const helpBtn = document.createElement('button');
+            helpBtn.setAttribute('aria-label', 'Help');
+            helpBtn.setAttribute('data-action', 'help');
+            helpBtn.setAttribute('data-target', win.id);
+            controls.appendChild(helpBtn);
+        }
+
+        // Minimize button
+        const minBtn = document.createElement('button');
+        minBtn.setAttribute('aria-label', 'Minimize');
+        minBtn.setAttribute('data-action', 'minimize');
+        minBtn.setAttribute('data-target', win.id);
+        controls.appendChild(minBtn);
+
+        // Maximize button (only for photo windows)
+        if (win.type === 'photo-window') {
+            const maxBtn = document.createElement('button');
+            maxBtn.setAttribute('aria-label', 'Maximize');
+            maxBtn.setAttribute('data-action', 'maximize');
+            maxBtn.setAttribute('data-target', win.id);
+            controls.appendChild(maxBtn);
+        }
+
+        // Close button
+        const closeBtn = document.createElement('button');
+        closeBtn.setAttribute('aria-label', 'Close');
+        closeBtn.setAttribute('data-action', 'close');
+        closeBtn.setAttribute('data-target', win.id);
+        controls.appendChild(closeBtn);
+
+        titleBar.appendChild(titleText);
+        titleBar.appendChild(controls);
+
+        windowDiv.appendChild(titleBar);
+
+        // Create window body
+        const body = document.createElement('div');
+        body.className = `window-body${win.type === 'message-window' ? ' content' : ''}`;
+        if (win.content) {
+            body.innerHTML = `<p>${win.content}</p>`;
+        }
+        windowDiv.appendChild(body);
+
+        container.appendChild(windowDiv);
+    });
+}
+
 // Window Control Event Delegation
 function initializeWindowEventDelegation() {
     document.addEventListener('click', (e) => {

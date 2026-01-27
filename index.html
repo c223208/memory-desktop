@@ -21,124 +21,10 @@
     </div>
 
     <!-- Desktop Icons -->
-    <div class="desktop-icons-container">
-        <div class="desktop-icon" data-target="msg1">
-            <img src="img/icon/folder.png" alt="folder" class="icon-img">
-            <div class="icon-label">Message 1</div>
-        </div>
+    <div id="desktop-icons-container" class="desktop-icons-container"></div>
 
-        <div class="desktop-icon" data-target="msg2">
-            <img src="img/icon/folder.png" alt="folder" class="icon-img">
-            <div class="icon-label">Message 2</div>
-        </div>
-
-        <!-- Added dummy icons for balance check -->
-        <div class="desktop-icon">
-            <img src="img/icon/folder.png" alt="folder" class="icon-img">
-            <div class="icon-label">Folder 1</div>
-        </div>
-        <div class="desktop-icon">
-            <img src="img/icon/folder.png" alt="folder" class="icon-img">
-            <div class="icon-label">Folder 2</div>
-        </div>
-        <div class="desktop-icon">
-            <img src="img/icon/folder.png" alt="folder" class="icon-img">
-            <div class="icon-label">Folder 3</div>
-        </div>
-        <div class="desktop-icon">
-            <img src="img/icon/folder.png" alt="folder" class="icon-img">
-            <div class="icon-label">Folder 4</div>
-        </div>
-    </div>
-
-    <!-- Windows -->
-    <div id="photo1" class="window photo-window window-large" style="top: 10px; left: 50px;">
-        <div class="title-bar">
-            <div class="title-bar-text">Picture 1</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize" data-action="minimize" data-target="photo1"></button>
-                <button aria-label="Maximize" data-action="maximize" data-target="photo1"></button>
-                <button aria-label="Close" data-action="close" data-target="photo1"></button>
-            </div>
-        </div>
-        <div class="window-body"></div>
-    </div>
-    
-    <div id="photo2" class="window photo-window window-medium" style="top: 10px; left: 450px;">
-        <div class="title-bar">
-            <div class="title-bar-text">Picture 2</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize" data-action="minimize" data-target="photo2"></button>
-                <button aria-label="Maximize" data-action="maximize" data-target="photo2"></button>
-                <button aria-label="Close" data-action="close" data-target="photo2"></button>
-            </div>
-        </div>
-        <div class="window-body"></div>
-    </div>
-    
-    <div id="photo3" class="window photo-window window-medium" style="top: 210px; left: 100px;">
-        <div class="title-bar">
-            <div class="title-bar-text">Picture 3</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize" data-action="minimize" data-target="photo3"></button>
-                <button aria-label="Maximize" data-action="maximize" data-target="photo3"></button>
-                <button aria-label="Close" data-action="close" data-target="photo3"></button>
-            </div>
-        </div>
-        <div class="window-body"></div>
-    </div>
-    
-    <div id="photo4" class="window photo-window window-large" style="top: 310px; left: 400px;">
-        <div class="title-bar">
-            <div class="title-bar-text">Picture 4</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize" data-action="minimize" data-target="photo4"></button>
-                <button aria-label="Maximize" data-action="maximize" data-target="photo4"></button>
-                <button aria-label="Close" data-action="close" data-target="photo4"></button>
-            </div>
-        </div>
-        <div class="window-body"></div>
-    </div>
-    
-    <div id="photo5" class="window photo-window window-medium" style="top: 60px; left: 750px;">
-        <div class="title-bar">
-            <div class="title-bar-text">Picture 5</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize" data-action="minimize" data-target="photo5"></button>
-                <button aria-label="Maximize" data-action="maximize" data-target="photo5"></button>
-                <button aria-label="Close" data-action="close" data-target="photo5"></button>
-            </div>
-        </div>
-        <div class="window-body"></div>
-    </div>
-
-    <div class="window message-window" id="msg1" style="top: 360px; left: 150px;">
-        <div class="title-bar">
-            <div class="title-bar-text">管理者からのメッセージ</div>
-            <div class="title-bar-controls">
-                <button aria-label="Help" data-action="help" data-target="msg1"></button>
-                <button aria-label="Minimize" data-action="minimize" data-target="msg1"></button>
-                <button aria-label="Close" data-action="close" data-target="msg1"></button>
-            </div>
-        </div>
-        <div class="window-body content">
-            <p>管理者からのメッセージ<br>その１</p>
-        </div>
-    </div>
-
-    <div class="window message-window" id="msg2" style="top: 410px; left: 600px;">
-        <div class="title-bar">
-            <div class="title-bar-text">重要なお知らせ</div>
-            <div class="title-bar-controls">
-                <button aria-label="Help" data-action="help" data-target="msg2"></button>
-                <button aria-label="Minimize" data-action="minimize" data-target="msg2"></button>
-                <button aria-label="Close" data-action="close" data-target="msg2"></button>
-            </div>
-        </div>
-        <div class="window-body content">
-            <p>追加のメッセージ<br>（重要なお知らせ）</p>
-        </div>
-    </div>
+    <!-- Windows Container -->
+    <div id="windows-container"></div>
 
     <!-- Taskbar -->
     <div class="taskbar">
@@ -157,6 +43,7 @@
     </div>
 
     <div class="crt-overlay"></div>
+    <script src="script/config.js"></script>
     <script src="script/ui.js"></script>
     <script src="script/boot.js"></script>
     <script src="script/main.js"></script>
