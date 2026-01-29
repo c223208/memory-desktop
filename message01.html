@@ -1,0 +1,34 @@
+<div class="notepad-container">
+
+  <!-- メニューバー -->
+  <div class="menu-bar">
+    <span>File</span>
+    <span>Edit</span>
+    <span>Search</span>
+    <span>Help</span>
+  </div>
+
+  <!--  読み込み専用   -->
+  <textarea readonly class="notepad"  style="width: 100%; height: 200px; resize: none;">
+  This is a read-only notepad.
+
+  まお
+
+  You cannot edit this text.
+  </textarea>
+</div>
+
+<!-- CSSファイルに移行 -->
+<style>
+.menu-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+
+.menu-bar span {
+  cursor: default;
+}
+</style>

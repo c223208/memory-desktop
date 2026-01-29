@@ -309,6 +309,7 @@ button, input, textarea, select, div, p, span, h1, h2, h3, h4, h5, h6, a, .title
     z-index: 5;
 }
 
+/* contentのスタイルは各htmlファイルで指定するため、ここでは無効化する
 .content {
     display: flex;
     align-items: center;
@@ -318,3 +319,4 @@ button, input, textarea, select, div, p, span, h1, h2, h3, h4, h5, h6, a, .title
     min-height: 100px;
     padding: 0;
 }
+*/

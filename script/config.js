@@ -6,8 +6,8 @@ const windowsConfig = [
     { id: 'photo3', type: 'photo-window', size: 'window-medium', title: 'Picture 3', top: 210, left: 100 },
     { id: 'photo4', type: 'photo-window', size: 'window-large', title: 'Picture 4', top: 310, left: 400 },
     { id: 'photo5', type: 'photo-window', size: 'window-medium', title: 'Picture 5', top: 60, left: 750 },
-    { id: 'msg1', type: 'message-window', title: '管理者からのメッセージ', top: 360, left: 150, content: 'message.html' },
-    { id: 'msg2', type: 'message-window', title: '重要なお知らせ', top: 410, left: 600, content: 'message.html' }
+    { id: 'msg1', type: 'message-window', title: 'まおからのメッセージ', top: 360, left: 150, content: 'message.html' },
+    { id: 'msg2', type: 'message-window', title: '重要なお知らせ～みづこ', top: 410, left: 600, content: 'message.html' }
 ];
 
 const iconsConfig = [
