@@ -6,9 +6,9 @@ const windowsConfig = [
     { id: 'photo3', type: 'photo-window', size: 'window-medium', title: 'Picture 3', top: 210, left: 100 },
     { id: 'photo4', type: 'photo-window', size: 'window-large', title: 'Picture 4', top: 310, left: 400 },
     { id: 'photo5', type: 'photo-window', size: 'window-medium', title: 'Picture 5', top: 60, left: 750 },
-    { id: 'msg1', type: 'message-window', title: 'まおからのメッセージ', top: 360, left: 150, content: 'message01.html' },
-    { id: 'msg2', type: 'message-window', title: '重要なお知らせ～みづこ', top: 410, left: 600, content: 'message02.html' },
-    { id: 'msg3', type: 'message-window', title: 'ふたり反省会', top: 460, left: 300, content: 'template.html' }
+    { id: 'msg1', type: 'message-window', title: 'まおからのメッセージ', top: 360, left: 150, content: 'message/miwa.html' },
+    { id: 'msg2', type: 'message-window', title: '重要なお知らせ～みづこ', top: 410, left: 600, content: 'message/miduko.html' },
+    { id: 'msg4', type: 'message-window', title: '秘密のメッセージ', top: 510, left: 700, content: 'window/template.html' }
 ];
 
 const iconsConfig = [
