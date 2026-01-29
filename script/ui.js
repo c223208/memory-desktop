@@ -93,7 +93,11 @@ function renderWindows() {
         const body = document.createElement('div');
         body.className = `window-body${win.type === 'message-window' ? ' content' : ''}`;
         if (win.content) {
-            body.innerHTML = `<p>${win.content}</p>`;
+            fetch(win.content)
+                .then(res => res.text())
+                .then(html => {
+                    body.innerHTML = html;
+        });
         }
         windowDiv.appendChild(body);
 
