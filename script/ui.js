@@ -68,6 +68,15 @@ function renderWindows() {
         minBtn.setAttribute('data-target', win.id);
         controls.appendChild(minBtn);
 
+        // Maximize button (only for photo windows)
+        if (win.type === 'photo-window') {
+            const maxBtn = document.createElement('button');
+            maxBtn.setAttribute('aria-label', 'Maximize');
+            maxBtn.setAttribute('data-action', 'maximize');
+            maxBtn.setAttribute('data-target', win.id);
+            controls.appendChild(maxBtn);
+        }
+
         // Close button
         const closeBtn = document.createElement('button');
         closeBtn.setAttribute('aria-label', 'Close');
@@ -109,7 +118,9 @@ function initializeWindowEventDelegation() {
             case 'minimize':
                 minimizeWindow(target);
                 break;
-            case 'close':
+            case 'maximize':
+                maximizeWindow(target);
+                break;            case 'close':
                 closeWindow(target);
                 break;
             case 'help':
@@ -179,6 +190,12 @@ function initializeTaskbar() {
         // Initial state: inactive
         const titleBar = win.querySelector('.title-bar');
         if (titleBar) titleBar.classList.add('inactive');
+
+        // Bind Maximize Button Dynamically
+        const maxBtn = win.querySelector('button[aria-label="Maximize"]');
+        if (maxBtn) {
+            maxBtn.onclick = () => maximizeWindow(win.id);
+        }
     });
 }
 
@@ -279,6 +296,14 @@ function minimizeWindow(id) {
             taskBtn.style.background = '#c0c0c0';
             taskBtn.style.border = '2px outset #fff';
         }
+    }
+}
+
+function maximizeWindow(id) {
+    const targetWindow = document.getElementById(id);
+    if (targetWindow) {
+        targetWindow.classList.toggle('maximized');
+        focusWindow(id);
     }
 }
 
