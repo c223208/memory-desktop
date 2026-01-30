@@ -34,12 +34,21 @@ function renderWindows() {
     const container = document.getElementById('windows-container');
     if (!container) return;
 
-    windowsConfig.forEach(win => {
+    const isMobile = window.innerWidth <= 768;
+
+    windowsConfig.forEach((win, index) => {
         const windowDiv = document.createElement('div');
         windowDiv.id = win.id;
         windowDiv.className = `window ${win.type}${win.size ? ' ' + win.size : ''}`;
-        windowDiv.style.top = win.top + 'px';
-        windowDiv.style.left = win.left + 'px';
+        
+        if (isMobile) {
+            windowDiv.style.top = (40 + (index * 30)) + 'px';
+            windowDiv.style.left = '10px';
+        } else {
+            windowDiv.style.top = win.top + 'px';
+            windowDiv.style.left = win.left + 'px';
+        }
+        
         windowDiv.style.display = 'none'; // Default to closed/hidden
 
         // Create title bar with buttons

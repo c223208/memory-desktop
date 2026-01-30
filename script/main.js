@@ -60,6 +60,50 @@ document.addEventListener('mouseup', () => {
     dragTargetWindow = null;
 });
 
+// Touch Events for Mobile Dragging
+document.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    const titleBar = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('.title-bar');
+    
+    if (!titleBar) return;
+    
+    // Check if a button was touched
+    const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (targetElement.tagName === 'BUTTON') return;
+
+    const win = titleBar.closest('.window');
+    if (!win) return;
+
+    if (win.classList.contains('maximized')) return;
+
+    // Prevent default scrolling behavior while dragging window
+    // Note: We might want to be careful not to block scrolling of content if not dragging title bar
+    // But since we checked for titleBar, it's safer to prevent default here to stop scrolling the body
+    // However, passive listeners are default now, so e.preventDefault might fail if not set up correctly.
+    // For now, we focus on the logic.
+    
+    isWindowDragging = true;
+    dragTargetWindow = win;
+    
+    const rect = win.getBoundingClientRect();
+    dragOffsetX = touch.clientX - rect.left;
+    dragOffsetY = touch.clientY - rect.top;
+}, { passive: false });
+
+document.addEventListener('touchmove', (e) => {
+    if (!isWindowDragging || !dragTargetWindow) return;
+    e.preventDefault(); // Stop scrolling
+    
+    const touch = e.touches[0];
+    dragTargetWindow.style.left = (touch.clientX - dragOffsetX) + 'px';
+    dragTargetWindow.style.top = (touch.clientY - dragOffsetY) + 'px';
+}, { passive: false });
+
+document.addEventListener('touchend', () => {
+    isWindowDragging = false;
+    dragTargetWindow = null;
+});
+
 // Page Load Initialization
 window.addEventListener('load', () => {
     renderUI();

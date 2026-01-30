@@ -354,3 +354,42 @@ button, input, textarea, select, div, p, span, h1, h2, h3, h4, h5, h6, a, .title
     margin: 3px;
     overflow: auto;
 }
+
+/* ============================
+   Mobile Adjustments
+   ============================ */
+@media (max-width: 768px) {
+    /* Tighter icon packing */
+    .desktop-icons-container {
+        padding: 0 2px; /* Reduce side padding more */
+        top: 5px;
+        gap: 0px;
+    }
+
+    /* Smaller icons but a bit larger than before */
+    .desktop-icon {
+        width: 95px; 
+        height: 70px; 
+    }
+
+    .icon-img {
+        width: 45px; 
+        height: 45px;
+    }
+
+    .icon-label {
+        font-size: 11px;
+        line-height: 1.0;
+    }
+
+    /* Resize windows for mobile */
+    .window {
+        max-width: 95vw !important;
+        max-height: 80vh !important;
+    }
+    
+    .window-body {
+        height: auto; /* Allow body to adjust */
+        flex-shrink: 1;
+    }
+}
