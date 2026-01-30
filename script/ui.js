@@ -174,15 +174,19 @@ function initializeDesktopIcons() {
             e.stopPropagation();
             icon.classList.remove('selected'); // Auto deselect on open
             const targetId = icon.getAttribute('data-target');
-            if (targetId) {
+            if (!targetId) return;
+             // ★追加：複数対応（カンマ区切り）
+            targetId.split(',').forEach(id => {
+                id = id.trim();
+                if (!id) return;
                 // If it's a window ID
-                if (document.getElementById(targetId)) {
-                    restoreWindow(targetId);
+                if (document.getElementById(id)) {
+                    restoreWindow(id);
                 } else {
                     // Fallback for icons without windows (just purely decorative or logs)
-                    console.log(`Open: ${targetId}`);
+                    console.log(`Open: ${id}`);
                 }
-            }
+            });
         });
     });
 }
