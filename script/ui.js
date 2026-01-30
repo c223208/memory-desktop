@@ -40,6 +40,7 @@ function renderWindows() {
         windowDiv.className = `window ${win.type}${win.size ? ' ' + win.size : ''}`;
         windowDiv.style.top = win.top + 'px';
         windowDiv.style.left = win.left + 'px';
+        windowDiv.style.display = 'none'; // Default to closed/hidden
 
         // Create title bar with buttons
         const titleBar = document.createElement('div');
