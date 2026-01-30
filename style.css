@@ -220,7 +220,7 @@ button, input, textarea, select, div, p, span, h1, h2, h3, h4, h5, h6, a, .title
 
 .desktop-icon {
     width: 100px;
-    height: 80px;
+    height: 85px;
     text-align: center;
     cursor: pointer;
     color: white;
@@ -249,7 +249,7 @@ button, input, textarea, select, div, p, span, h1, h2, h3, h4, h5, h6, a, .title
 }
 
 .icon-label {
-    font-size: 18px;
+    font-size: 18px; /* フォントサイズを小さくして2行収める */
     background-color: transparent;
     padding: 0 4px; /* 上下のパディングを0に */
     line-height: 1.1; /* 行間を少し詰める */
