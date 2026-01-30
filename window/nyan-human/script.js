@@ -11,7 +11,8 @@ function initFlyingCreatures() {
 
     // Spawn a creature every 3-7 seconds
     function spawn() {
-        if (!document.hasFocus()) return; // Optional: pause if tab not active to save resources
+        // Removed hasFocus check to allow background animation
+        // if (!document.hasFocus()) return; 
 
         const creatureWrapper = document.createElement('div');
         creatureWrapper.classList.add('flying-creature');
@@ -73,17 +74,11 @@ function initStars() {
 
 function initRainbow() {
     const rainbow = document.getElementById('rainbow');
-    
-    // Calculate how many segments needed to fill half the screen width
-    // window.innerWidth / 2 divided by segment width (4 * 6px = 24px)
-    // Add buffer
     const u = 6;
     const segmentWidth = 4 * u;
-    const segmentsNeeded = Math.ceil((window.innerWidth / 2) / segmentWidth) + 5;
-    
     const colors = ['#f00', '#f90', '#ff0', '#3f0', '#09f', '#63f'];
-    
-    for (let i = 0; i < segmentsNeeded; i++) {
+
+    function createSegment() {
         const segment = document.createElement('div');
         segment.classList.add('rainbow-segment');
         
@@ -94,8 +89,27 @@ function initRainbow() {
             segment.appendChild(stripe);
         });
         
-        rainbow.appendChild(segment);
+        return segment;
     }
+
+    function updateRainbow() {
+        // Calculate needed segments based on CURRENT window width
+        // Use a generous buffer (+20)
+        const needed = Math.ceil((window.innerWidth / 2) / segmentWidth) + 20;
+        const current = rainbow.children.length;
+        
+        if (current < needed) {
+            for (let i = 0; i < needed - current; i++) {
+                rainbow.appendChild(createSegment());
+            }
+        }
+    }
+    
+    // Initial creation
+    updateRainbow();
+
+    // Update on resize
+    window.addEventListener('resize', updateRainbow);
 }
 
 function startAnimationLoop() {
