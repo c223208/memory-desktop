@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Creature</title>
+    <!-- Import Google Model Viewer -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #e0e7ff;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            /* Simple floor effect */
+            background: radial-gradient(circle at 50% 50%, #f0f4f8 0%, #d1d5db 100%);
+        }
+
+        #scene-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #creature-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            will-change: transform;
+            cursor: pointer;
+            user-select: none;
+            /* margin-top removed to fix clipping */
+        }
+
+        :focus {
+            outline: none;
+        }
+
+        model-viewer {
+            width: 300px;
+            height: 300px;
+        }
+
+        .instruction {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #4b5563;
+            pointer-events: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scene-container">
+        <div id="creature-wrapper">
+            <model-viewer 
+                id="creature-model"
+                    src="./creature1.glb" 
+                    alt="A walking 3D creature" 
+                    disable-zoom 
+                    shadow-intensity="2" 
+                    shadow-softness="1"
+                    bounds="tight"
+                    camera-orbit="180deg 75deg 180%" 
+                    orientation="0deg 0deg 0deg"
+                    environment-image="neutral"
+                    exposure="1"
+                    interaction-prompt="none">
+            </model-viewer>
+        </div>
+    </div>
+
+    <div class="instruction">HUMAN</div>
+
+    <script>
+        const wrapper = document.getElementById('creature-wrapper');
+        const model = document.getElementById('creature-model');
+        
+        let posX = 0;
+        let posY = 0;
+        let velX = 0;
+        let velY = 0;
+
+        const friction = 0.9;
+        const forceStrength = 2.5;
+        const fleeRadius = 200;
+        const moveThreshold = 0.2;
+
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let initialDragPosX = 0;
+        let initialDragPosY = 0;
+        
+        let isMoving = false;
+        let currentRotation = 0;
+
+        wrapper.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            velX = 0; velY = 0;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            initialDragPosX = posX;
+            initialDragPosY = posY;
+            wrapper.style.cursor = 'grabbing';
+        });
+
+        // Touch support for start
+        wrapper.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 1) return; // Ignore multi-touch
+            e.preventDefault(); // Prevent scrolling on start
+            isDragging = true;
+            velX = 0; velY = 0;
+            dragStartX = e.touches[0].clientX;
+            dragStartY = e.touches[0].clientY;
+            initialDragPosX = posX;
+            initialDragPosY = posY;
+            wrapper.style.cursor = 'grabbing';
+        }, { passive: false });
+
+        window.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                wrapper.style.cursor = 'pointer';
+            }
+        });
+
+        // Touch support for end
+        window.addEventListener('touchend', () => {
+            if (isDragging) {
+                isDragging = false;
+                wrapper.style.cursor = 'pointer';
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const deltaX = e.clientX - dragStartX;
+                const deltaY = e.clientY - dragStartY;
+                posX = initialDragPosX + deltaX;
+                posY = initialDragPosY + deltaY;
+                return;
+            }
+
+            const rect = wrapper.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            const dx = e.clientX - centerX;
+            const dy = e.clientY - centerY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < fleeRadius) {
+                const forceX = -dx / distance;
+                const forceY = -dy / distance;
+                const strength = (fleeRadius - distance) / fleeRadius;
+                velX += forceX * strength * forceStrength;
+                velY += forceY * strength * forceStrength;
+            }
+        });
+
+        // Touch support for move
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                // Prevent scrolling while dragging
+                e.preventDefault();
+                const deltaX = e.touches[0].clientX - dragStartX;
+                const deltaY = e.touches[0].clientY - dragStartY;
+                posX = initialDragPosX + deltaX;
+                posY = initialDragPosY + deltaY;
+                return;
+            }
+        }, { passive: false });
+
+        const handleLoop = () => {
+             if (!isMoving) {
+                 if (typeof model.pause === 'function') model.pause();
+             }
+        };
+
+        model.addEventListener('loop', handleLoop);
+        model.addEventListener('finished', handleLoop);
+
+        let lastPosX = posX;
+        let lastPosY = posY;
+
+        function animate() {
+            if (isDragging) {
+                // Calculate velocity from drag movement for throwing effect and animation
+                velX = posX - lastPosX;
+                velY = posY - lastPosY;
+            } else {
+                posX += velX;
+                posY += velY;
+                velX *= friction;
+                velY *= friction;
+
+                const limitX = window.innerWidth / 2 - 100;
+                const limitY = window.innerHeight / 2 - 100;
+
+                if (posX > limitX) { posX = limitX; velX *= -0.5; }
+                if (posX < -limitX) { posX = -limitX; velX *= -0.5; }
+                if (posY > limitY) { posY = limitY; velY *= -0.5; }
+                if (posY < -limitY) { posY = -limitY; velY *= -0.5; }
+            }
+
+            lastPosX = posX;
+            lastPosY = posY;
+
+            const speed = Math.sqrt(velX * velX + velY * velY);
+            isMoving = speed > moveThreshold;
+            const shouldRotate = speed > 0.1;
+
+            if (shouldRotate) {
+                const targetRotation = (Math.atan2(velX, velY) * (180 / Math.PI));
+                let delta = targetRotation - currentRotation;
+                while (delta > 180) delta -= 360;
+                while (delta < -180) delta += 360;
+                currentRotation += delta * 0.05;
+                model.setAttribute('orientation', `0deg 0deg ${currentRotation}deg`);
+            }
+
+            if (isMoving) {
+                const animations = model.availableAnimations;
+                if (animations && animations.length > 0) {
+                     const runAnim = animations.find(a => a.toLowerCase().includes('run'));
+                     const walkAnim = animations.find(a => a.toLowerCase().includes('walk'));
+                     const targetAnim = runAnim || walkAnim || animations[0];
+                     
+                     if (model.animationName !== targetAnim) {
+                         model.animationName = targetAnim;
+                     }
+                     if (model.paused && typeof model.play === 'function') {
+                        model.play();
+                     }
+                }
+            }
+
+            wrapper.style.transform = `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px))`;
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
