@@ -359,7 +359,7 @@ button, input, textarea, select, div, p, span, h1, h2, h3, h4, h5, h6, a, .title
    Mobile Adjustments
    ============================ */
 @media (max-width: 768px) {
-    /* Tighter icon packing */
+    /*w Tighter icon packing */
     .desktop-icons-container {
         padding: 0 2px; /* Reduce side padding more */
         top: 5px;
