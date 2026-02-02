@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Oval Face</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="star-field" id="starField"></div>
+    
+    <div class="center-container">
+        <div class="rainbow" id="rainbow"></div>
+        
+                <div class="pixel-oval">
+                    <!-- Body Shape (Clipped) -->
+                    <div class="body-shape">
+                        <div class="oval-part oval-center"></div>
+                        <div class="oval-part oval-top"></div>
+                        <div class="oval-part oval-bottom"></div>
+                        <div class="oval-part oval-left"></div>
+                        <div class="oval-part oval-right"></div>
+        
+                        <!-- Face: Closer eyes and a nose -->
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye"></div>
+                                <div class="eye"></div>
+                            </div>
+                            <div class="nose"></div>
+                            <div class="mouth">
+                                <div class="mouth-corner"></div>
+                                <div class="mouth-bottom"></div>
+                                <div class="mouth-corner"></div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Legs: Inside pixel-oval (animates with body) but outside clip-path -->
+                    <div class="legs">
+                        <div class="leg leg-left"></div>
+                        <div class="leg leg-right"></div>
+                    </div>
+                </div>
+            </div>
+    <script src="script.js"></script>
+</body>
+</html>

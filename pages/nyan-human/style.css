@@ -1,0 +1,318 @@
+:root {
+    --bg-color: #003366;
+    --u: 6px; /* Pixel unit size */
+    
+    /* Rainbow Colors */
+    --rb-red: #f00;
+    --rb-orange: #f90;
+    --rb-yellow: #ff0;
+    --rb-green: #3f0;
+    --rb-blue: #09f;
+    --rb-purple: #63f;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.star-field {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    width: var(--u); height: var(--u);
+    background-color: white;
+    animation: star-fly linear infinite;
+}
+
+@keyframes star-fly {
+    from { transform: translateX(100vw); }
+    to { transform: translateX(-100px); }
+}
+
+/* Center Container */
+.center-container {
+    position: relative;
+    width: calc(40 * var(--u)); 
+    height: calc(30 * var(--u));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* --- RAINBOW --- */
+.rainbow {
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: row-reverse;
+    height: calc(24 * var(--u)); 
+    z-index: 5;
+    margin-right: 0;
+}
+
+.rainbow-segment {
+    width: calc(4 * var(--u));
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.rainbow-stripe {
+    flex: 1;
+}
+
+/* --- PIXEL OVAL --- */
+.pixel-oval {
+    position: relative;
+    width: calc(16 * var(--u)); 
+    height: calc(34 * var(--u));
+    z-index: 10;
+    animation: bob 0.3s steps(2) infinite alternate;
+}
+
+.body-shape {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Create a uniform vertical oval shape using clip-path */
+    clip-path: polygon(
+        /* Top Edge */
+        calc(4 * var(--u)) 0, 
+        calc(12 * var(--u)) 0, 
+        
+        /* Top Right Corner */
+        calc(12 * var(--u)) var(--u),
+        calc(14 * var(--u)) var(--u),
+        calc(14 * var(--u)) calc(2 * var(--u)),
+        100% calc(2 * var(--u)),
+        
+        /* Right Side */
+        100% calc(32 * var(--u)),
+        
+        /* Bottom Right Corner */
+        calc(14 * var(--u)) calc(32 * var(--u)),
+        calc(14 * var(--u)) calc(33 * var(--u)),
+        calc(12 * var(--u)) calc(33 * var(--u)),
+        calc(12 * var(--u)) 100%,
+        
+        /* Bottom Edge */
+        calc(4 * var(--u)) 100%,
+        
+        /* Bottom Left Corner */
+        calc(4 * var(--u)) calc(33 * var(--u)),
+        calc(2 * var(--u)) calc(33 * var(--u)),
+        calc(2 * var(--u)) calc(32 * var(--u)),
+        0 calc(32 * var(--u)),
+        
+        /* Left Side */
+        0 calc(2 * var(--u)),
+        
+        /* Top Left Corner */
+        calc(2 * var(--u)) calc(2 * var(--u)),
+        calc(2 * var(--u)) var(--u),
+        calc(4 * var(--u)) var(--u)
+    );
+}
+
+.oval-part {
+    position: absolute;
+    background-color: #ffcccc; /* Start color */
+    /* Use outline or box-shadow to prevent sub-pixel gaps */
+    box-shadow: 0 0 0 0.5px #ffcccc;
+    animation: color-cycle 10s infinite linear;
+}
+
+.oval-center {
+    top: calc(1 * var(--u) - 1px);
+    left: calc(1 * var(--u) - 1px);
+    right: calc(1 * var(--u) - 1px);
+    bottom: calc(1 * var(--u) - 1px);
+}
+
+.oval-top {
+    top: 0;
+    left: calc(4 * var(--u));
+    right: calc(4 * var(--u));
+    height: calc(1 * var(--u) + 1px);
+}
+
+.oval-bottom {
+    bottom: 0;
+    left: calc(4 * var(--u));
+    right: calc(4 * var(--u));
+    height: calc(1 * var(--u) + 1px);
+}
+
+.oval-left {
+    left: 0;
+    top: calc(5 * var(--u));
+    bottom: calc(5 * var(--u));
+    width: calc(1 * var(--u) + 1px);
+}
+
+.oval-right {
+    right: 0;
+    top: calc(5 * var(--u));
+    bottom: calc(5 * var(--u));
+    width: calc(1 * var(--u) + 1px);
+}
+
+/* --- FACE (Eyes and Nose) --- */
+.face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 15;
+}
+
+.eyes {
+    position: absolute;
+    top: calc(4 * var(--u));
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(5 * var(--u)); /* Narrower container to bring eyes closer */
+    display: flex;
+    justify-content: space-between;
+}
+
+.eye {
+    width: var(--u);
+    height: var(--u);
+    background-color: black;
+}
+
+.nose {
+    position: absolute;
+    top: calc(8 * var(--u)); /* Slightly below the eyes */
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--u);
+    height: var(--u);
+    background-color: black;
+}
+
+.mouth {
+    position: absolute;
+    top: calc(12 * var(--u)); /* Same distance from nose as nose is from eyes */
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(7 * var(--u));
+    height: calc(2 * var(--u));
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.mouth-corner {
+    width: var(--u);
+    height: var(--u);
+    background-color: black;
+}
+
+.mouth-bottom {
+    width: calc(3 * var(--u));
+    height: var(--u);
+    background-color: black;
+    margin-top: var(--u); /* Push bottom part down */
+    margin-left: -1px; /* Overlap slightly or just rely on flex */
+}
+
+/* Fix flex gap if any, ensuring pixel perfection */
+.mouth-corner:first-child { margin-right: -1px; }
+.mouth-corner:last-child { margin-left: -1px; }
+
+/* --- LEGS --- */
+.legs {
+    position: absolute;
+    bottom: 0; /* Attach to the bottom of the oval */
+    left: 0;
+    width: 100%;
+    height: var(--u);
+    z-index: 5;
+}
+
+.leg {
+    position: absolute;
+    width: calc(2 * var(--u));
+    height: calc(3 * var(--u)); 
+    background-color: #ffcccc;
+    bottom: calc(-2 * var(--u)); 
+    animation: color-cycle 10s infinite linear;
+}
+
+.leg-left {
+    left: calc(2 * var(--u)); 
+}
+
+.leg-right {
+    right: calc(2 * var(--u)); 
+}
+
+@keyframes leg-bob {
+    /* Removed per request */
+}
+
+@keyframes color-cycle {
+    0% { background-color: #ffcccc; box-shadow: 0 0 0 0.5px #ffcccc; }
+    10% { background-color: #ffcc99; box-shadow: 0 0 0 0.5px #ffcc99; }
+    20% { background-color: #ffffcc; box-shadow: 0 0 0 0.5px #ffffcc; }
+    30% { background-color: #ccffcc; box-shadow: 0 0 0 0.5px #ccffcc; }
+    40% { background-color: #ccffff; box-shadow: 0 0 0 0.5px #ccffff; }
+    50% { background-color: #ccccff; box-shadow: 0 0 0 0.5px #ccccff; }
+    60% { background-color: #e5ccff; box-shadow: 0 0 0 0.5px #e5ccff; }
+    70% { background-color: #ffccff; box-shadow: 0 0 0 0.5px #ffccff; }
+    80% { background-color: #ff99cc; box-shadow: 0 0 0 0.5px #ff99cc; }
+    90% { background-color: #ff6666; box-shadow: 0 0 0 0.5px #ff6666; }
+    100% { background-color: #ffcccc; box-shadow: 0 0 0 0.5px #ffcccc; }
+}
+
+@keyframes bob {
+    from { 
+        transform: translateY(0) scaleY(1.1); 
+        transform-origin: center;
+    }
+    to { 
+        transform: translateY(0) scaleY(0.8); 
+        transform-origin: center;
+    }
+}
+
+/* Flying creature in background */
+.flying-creature {
+    position: absolute;
+    z-index: 2; 
+    /* Scale will be set by JS */
+    animation: fly-across 10s linear forwards;
+}
+
+/* Override bob animation for flying creatures and add tumble */
+.flying-creature .pixel-oval {
+    animation: tumble 10s linear forwards;
+    height: calc(34 * var(--u)); 
+    /* transform-origin center is default, good for rotation */
+}
+
+@keyframes fly-across {
+    from { left: 110vw; }
+    to { left: -200px; }
+}
+
+@keyframes tumble {
+    from { transform: rotate(15deg); }
+    to { transform: rotate(-15deg); }
+}
