@@ -329,7 +329,7 @@ button, input, textarea, select, div, p, span, h1, h2, h3, h4, h5, h6, a, .title
     padding: 0;
     flex-grow: 1;
     background-color: #000;
-    background-image: url('img/picture.jpg'); 
+    background-image: url("https://pub-3c98e81db3914ea1a0e2331b13d8026e.r2.dev/picture.jpg"); 
     background-size: cover;
     background-attachment: fixed; 
     background-position: center;
