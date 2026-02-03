@@ -37,14 +37,19 @@
 ### 構成概要
 
 ```
-/ src
-/ js
-windowManager.js // ウィンドウ状態・重なり順の管理
-windowFactory.js // ウィンドウ生成処理
-ui.js // UIイベント・描画制御
-/ css
-desktop.css // デスクトップ全体のスタイル
-index.html
+/
+├─ index.html   // デスクトップ画面のエントリポイント
+├─ style.css    // デスクトップ全体およびウィンドウ共通スタイル
+├─ script/
+│ ├─ main.js    //初期化・基盤処理
+│ ├─ config.js  // ウィンドウ・デスクトップ定義（配列管理）
+│ ├─ ui.js      // UIイベント処理・操作ロジック
+│ └─ boot.js    // BIOS風ブート画面の表示制御
+├─ pages/       // iframeで読み込まれる各ウィンドウコンテンツ
+├─ img/
+│ └─ icon/      // デスクトップアイコン画像
+└─ README.md
+
 ```
 
 ---
