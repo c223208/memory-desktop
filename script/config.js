@@ -11,7 +11,7 @@ const windowsConfig = [
     { id: 'window1', type: 'message-window', title: '本をもとめて', top: 510, left: 700, content: 'pages/mice.html' },
     { id: 'window2', type: 'message-window', title: 'イタリア周辺（2c BC~15c AD）', top: 100, left: 300, content: 'pages/italy.html' },
     { id: 'human', type: 'message-window', title: 'Walking Human', top: 150, left: 150, content: 'pages/human.html' },
-    { id: 'nyan_human', type: 'message-window', title: 'Nyan Human', top: 200, left: 200, content: 'pages/nyan-human.html' }
+    { id: 'nyan_human', type: 'message-window', title: 'Nyan Human', top: 200, left: 200, content: 'pages/nyan_human.html' }
 ];
 
 const iconsConfig = [
